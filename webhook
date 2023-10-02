@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+<script>
+function changeimage() {
+  // Generate a random letter from A to Z
+  function randomLetter() {
+    let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let index = Math.floor(Math.random() * alphabet.length);
+    return alphabet[index];
+  }
+	
+  // Generate a random number from 0 to 9
+  function randomNumber() {
+    let alphabet = "1234567890";
+    let index = Math.floor(Math.random() * alphabet.length);
+    return alphabet[index];
+  }
+
+  // Generate a random string of 4 letters and 2 numbers
+  function randomString() {
+    // Define an array of letters and numbers
+    let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    let numbers = "1234567890".split("");
+    
+    // Define an empty array to store the random string
+    let result = [];
+
+    // Pick 4 random letters from the letters array and push them to the result array
+    for (let i = 0; i < 4; i++) {
+      let index = Math.floor(Math.random() * letters.length);
+      result.push(letters[index]);
+      // Remove the picked letter from the letters array to avoid duplicates
+      letters.splice(index, 1);
+    }
+
+    // Pick 2 random numbers from the numbers array and push them to the result array
+    for (let i = 0; i < 2; i++) {
+      let index = Math.floor(Math.random() * numbers.length);
+      result.push(numbers[index]);
+      // Remove the picked number from the numbers array to avoid duplicates
+      numbers.splice(index, 1);
+    }
+
+    // Shuffle the result array using a random comparator
+    result.sort(() => Math.random() - 0.5);
+
+    // Join the result array into a string and return it
+    return result.join("");
+  }
+
+  // Assign the random string to variable y
+  let y = "https://prnt.sc/" + randomString();
+
+  // Create a new XMLHttpRequest object
+  var request = new XMLHttpRequest();
+
+  // Specify the POST method and the webhook URL
+  request.open("POST", "https://webhook url goes here");
+
+  // Set the content type header to indicate JSON data
+  request.setRequestHeader("Content-type", "application/json");
+
+  // Define the parameters for the webhook message
+  var params = {
+    username: "name goes here",
+    avatar_url: "pfp goes here",
+    content: y
+  };
+
+  // Send the request with the JSON data
+  request.send(JSON.stringify(params));
+}
+</script>
+<body>
+<button type="button" onclick="changeimage()">post image</button>
+</body>
+</html>
